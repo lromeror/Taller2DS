@@ -16,6 +16,8 @@ import modelo.Cancion;
 
 public class PrimaryController {
 
+     @FXML 
+    private Label lblArtista;
     @FXML
     private VBox vbTop10;
     @FXML
@@ -31,7 +33,7 @@ public class PrimaryController {
 
     public void initialize() {
         listaCanciones = Cancion.leerCanciones();
-        Collections.sort(listaCanciones);
+        Collections.sort(listaCanciones, Collections.reverseOrder());
         for (Cancion c : listaCanciones ) {
 
             HBox hb = new HBox(10);//hbox para ubicar info de cada cancion
@@ -45,10 +47,10 @@ public class PrimaryController {
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
-            Label lbT = new Label(c.getTitulo() + " \n" + c.getCantante());//titulo y cantante
+            Label lbT = new Label(c.getCantante() + " \n" + c.getTitulo());//titulo y cantante
             lbT.setStyle("-fx-font-weight: bold;-fx-font-size: 14;");
-
-            hb.getChildren().addAll(lbp, iv, lbT);//agregar al hbox
+            
+            hb.getChildren().addAll( iv, lbT, lbp);//agregar al hbox
 
             hb.setOnMouseClicked(eh -> mostrarHistorial(c));//establecer el evento del click
             vbTop10.getChildren().add(hb);//agregar al vbox
@@ -58,6 +60,10 @@ public class PrimaryController {
 
 
     private void mostrarHistorial(Cancion c) {
+        
+        lblArtista.setText(c.getCantante());
+  
+        
         lblTitulo.setText(c.getTitulo());
 
         try {
