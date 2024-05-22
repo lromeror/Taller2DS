@@ -16,6 +16,8 @@ import modelo.Cancion;
 
 public class PrimaryController {
 
+     @FXML 
+    private Label lblArtista;
     @FXML
     private VBox vbTop10;
     @FXML
@@ -58,6 +60,10 @@ public class PrimaryController {
 
 
     private void mostrarHistorial(Cancion c) {
+        
+        lblArtista.setText(c.getCantante());
+  
+        
         lblTitulo.setText(c.getTitulo());
 
         try {
